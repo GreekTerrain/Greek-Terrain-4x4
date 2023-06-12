@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customizable Calendar</title>
+  <style>
+    /* CSS for calendar */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-gap: 5px;
+      width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .calendar .day {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ccc;
+      background-color: #f9f9f9;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .calendar .day:hover {
+      background-color: #e1e1e1;
+    }
+    
+    .calendar .current-day {
+      background-color: #60a5fa;
+      color: #fff;
+    }
+    
+    .calendar .selected-day {
+      background-color: #ff9800;
+      color: #fff;
+    }
+    
+    .event-container {
+      width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .event {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    .event span {
+      margin-right: 10px;
+    }
+    
+    .no-events {
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <h1>Customizable Calendar</h1>
+
+  <div class="calendar" id="calendar"></div>
+
+  <div class="event-container" id="event-container">
+    <h2>Events</h2>
+    <div id="events"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var calendar = document.getElementById("calendar");
+      var eventContainer = document.getElementById("event-container");
+      var events = document.getElementById("events");
+      var currentDate = new Date();
+      var selectedDate = null;
+
+      // Generate calendar
+      function generateCalendar(year, month) {
+        var firstDay = new Date(year, month, 1);
+        var lastDay = new Date(year, month + 1, 0);
+        var daysInMonth = lastDay.getDate();
+
+        // Clear previous calendar
+        calendar.innerHTML = "";
+
+        // Generate day buttons
+        for (var i = 1; i <= daysInMonth; i++) {
+          var day = document.createElement("div");
+          day.className = "day";
+          day.textContent = i;
+          day.addEventListener("click", handleDaySelection);
+          calendar.appendChild(day);
+        }
+
+        // Highlight current date
+        if (
+          currentDate.getFullYear() === year &&
+          currentDate.getMonth() === month
+        ) {
+          var currentDay = currentDate.getDate();
+          var dayButtons = calendar.getElementsByClassName("day");
+          dayButtons[currentDay - 1].classList.add("current-day");
+        }
+      }
+
+      // Function to handle day selection
+      function handleDaySelection(event) {
+        var dayButtons = calendar.getElementsByClassName("day");
+
+        // Remove previous selection
+        if (selectedDate) {
+          selectedDate.classList.remove("selected-day");
+        }
+
+        // Select the clicked day
+        event.target.classList.add("selected-day");
+        selectedDate = event.target;
+
+        // Clear events
+        events.innerHTML = "";
+
+        // Get events for the selected day
+        var selectedDay = parseInt(selectedDate.textContent);
+        var eventList = getEvents(selectedDay);
+        if (eventList.length > 0) {
+          for (var i = 0; i < eventList.length; i++) {
+            var eventItem = document.createElement("div");
+            eventItem.className = "event";
+            eventItem.innerHTML =
+              '<span>' + eventList[i].title + '</span><button onclick="deleteEvent(' +
+              eventList[i].id +
+              ')">Delete</button>';
+            events.appendChild(eventItem);
+          }
+        } else {
+          var noEventMessage = document.createElement("div");
+          noEventMessage.className = "no-events";
+          noEventMessage.textContent = "No events for this day.";
+          events.appendChild(noEventMessage);
+        }
+      }
+
+      // Example function to get events for a specific day
+      function getEvents(day) {
+        // Replace this with your own data retrieval logic
+        // This is just an example with hardcoded event data
+        var events = [
+          {
+            id: 1,
+            day: 5,
+            month: 0,
+            year: 2023,
+            title: "Event 1",
+          },
+          {
+            id: 2,
+            day: 10,
+            month: 0,
+            year: 2023,
+            title: "Event 2",
+          },
+          {
+            id: 3,
+            day: 10,
+            month: 0,
+            year: 2023,
+            title: "Event 3",
+          },
+          // Add more events here
+        ];
+
+        return events.filter(function (event) {
+          return (
+            event.day === day &&
+            event.month === currentDate.getMonth() &&
+            event.year === currentDate.getFullYear()
+          );
+        });
+      }
+
+      // Example function to delete an event
+      function deleteEvent(eventId) {
+        // Replace this with your own event deletion logic
+        // This is just an example
+        var eventIndex = events.findIndex(function (event) {
+          return event.id === eventId;
+        });
+        if (eventIndex !== -1) {
+          events.splice(eventIndex, 1);
+          handleDaySelection({ target: selectedDate });
+        }
+      }
+
+      // Initial calendar generation
+      generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+
+      // Go to previous month
+      document.getElementById("prev-month").addEventListener("click", function () {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+      });
+
+      // Go to next month
+      document.getElementById("next-month").addEventListener("click", function () {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+      });
+    });
+  </script>
+</body>
+</html>
