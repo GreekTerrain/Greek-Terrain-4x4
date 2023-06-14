@@ -10,10 +10,10 @@
 
 <IMG STYLE=
             "position:absolute; 
-                TOP:-10px; 
-                LEFT:0px; 
-                width: 1350.5px" 
-                HEIGHT: 1365px" 
+                TOP:0%; 
+                LEFT:0%; 
+                width: 100%" 
+                HEIGHT: 100%" 
              SRC="BACKGROUND HOME.jpg">
 
 			 
@@ -39,8 +39,8 @@
   transition-duration: 0.5;
   cursor: pointer;
   position: absolute;
-  left: 370px;
-  top: 10px;
+  left: 28%;
+  top: 1.5%;
 }
 
 .button1:hover {
@@ -49,8 +49,7 @@
   font-weight: bold;
   font-variation-settings: "wght" 582; 
   letter-spacing: 3px;
-    
-}
+    }
 </style>
  </head>
 
@@ -58,13 +57,10 @@
 <a href="#" button class="button1"><font face="candara">HOME</font></button></a>
 
 
-<IMG STYLE=
-            "position:absolute; 
-                TOP:-6%; 
-                LEFT:588px; 
-                width: 180px" 
-                HEIGHT: 180px" 
-             SRC="logo.png">
+<div style="position:relative; width:100%; height:0; padding-top:580px;">
+  <img style="position:absolute; top:-6%; left:50%; transform:translateX(-50%); width:13%; height:180px;" src="logo.png">
+</div>
+
 			 
 <head>
 <style>
@@ -82,12 +78,13 @@
   transition-duration: 0.5s;
   cursor: pointer;
   position: absolute;
-  left: 580px;
-  top: 550px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 87%;
   border-radius: 5px;
   letter-spacing: 2px;
   border: 1px solid white;
-}
+   }
 
 .button7:hover {
    background-color: rgba(128, 128, 128, 0.2);
@@ -121,8 +118,8 @@
   transition-duration: 0.5s;
   cursor: pointer;
   position: absolute;
-  left: 480px;
-  top: 10px;
+  left: 36%;
+  top: 1.5%;
 }
 
 .button2:hover {
@@ -160,8 +157,8 @@
   transition: 700ms ease;
   cursor: pointer;
   position: absolute;
-  left: 895px;
-  top: 10px;
+  left: 66%;
+  top: 1.5%;
 }
 
 .button4:hover {
@@ -196,8 +193,8 @@
 
 .dropdown {
   position:  absolute;
-  left: 785px;
-  top: 12.8px;
+  left: 57.5%;
+  top: 2%;
   display: inline-block;
   font-variation-settings: "wght" 311;
   transition: 700ms ease;
@@ -268,13 +265,15 @@
 
     h4 {
       position: absolute;
-      left: 560px;
-      top: 290px;
+      top: 50%;
       font-size: 16px;
       font-family: "candara";
       animation: fadeIn 1s ease-in-out forwards;
       opacity: 0;
       color: white;
+	   left: 50%;
+  transform: translateX(-50%);
+	  
     }
   </style>
 </head>
@@ -310,11 +309,12 @@
 h5 {
   color: #4a7586;
   position: absolute;
-  left: 520px;
-  top: 700px;
+   top: 700px;
   font-size: 15px;
   font-face: "candara";
    letter-spacing: 3px;
+    left: 50%;
+  transform: translateX(-50%);
     }
 </style>
 </head>
@@ -337,7 +337,8 @@ p1 {
   letter-spacing: 3px;
   position: absolute;
   top: 810px;
-  left: 390px;
+  left: 50%;
+  transform: translateX(-50%);
   color: #4a7586;
   font-face: "candara";
   text-indent: 0px;
@@ -361,7 +362,8 @@ p2 {
   letter-spacing: 3px;
   position: absolute;
   top: 1430px;
-  left: 500px;
+   left: 50%;
+  transform: translateX(-50%);
   color: #4a7586;
   font-face: "candara";
   text-indent: 0px;
@@ -684,12 +686,14 @@ function myFunction() {
       color: white;
       opacity: 0;
       position: absolute;
-      left: 280px;
+      left: 50%;
       top: 310px;
       font-size: 70px;
       font-face: "candara";
       text-align: center;
       animation: fade-in 1s ease-in-out forwards;
+	   transform: translateX(-50%); 
+	   white-space: nowrap; 
     }
 
     @keyframes fade-in {
@@ -876,7 +880,8 @@ body {
   </div>
 </div>
 
-<div class="flip-card" style="left: 550px;">
+<div class="flip-card" style=" left: 50%;
+  transform: translateX(-50%);">
   <div class="flip-card-inner">
     <div class="flip-card-front" onclick="flipCard()">
       <img src="trip2.jpg" alt="Avatar" style="width:250px;height:350px;">
@@ -957,7 +962,7 @@ body {
 		.container2 .card {
 			position: absolute;
 			width: 265px;
-			top: 300px;
+			top: -280px;
 			right: 950px;
 			height: 397px;
 			background: url("mou.jpg");
